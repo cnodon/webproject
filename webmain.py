@@ -1,13 +1,26 @@
 from flask import Flask
+
+from flask import render_template
+
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-        return "<h1 style='color:blue;text-align:center;margin:200px auto;border:1px solid blue;padding:10px 20px;width:300px;'>Welcome to Flask!</h1>"
 
-@app.route("/index")
-def index():
-    return "<h1 style='color:blue;text-align:center;margin:200px auto;border:1px solid blue;padding:10px 20px;width:300px;'>Index Page!</h1>"
+@app.route('/hello')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template('hello.html', name=name)
+
+
+@app.route("/")
+def root_page():
+    return "<h1 style='color:blue;text-align:center;margin:200px auto;border:1px solid blue;padding:10px " \
+           "20px;width:300px;'>Root Page!</h1> "
+
+
+@app.route("/user/<username>")
+def show_profile(username):
+    return "<h1 style='color:blue;text-align:center;margin:200px auto;border:1px solid blue;padding:10px " \
+           "20px;width:300px;'>User %s!</h1>" % username
 
 
 if __name__ == "__main__":
